@@ -29,18 +29,23 @@ Built with **HTML, CSS, JavaScript** (localStorage) and designed to be lightweig
 
 ## 🗂️ Project Structure
 Below is a simplified view of the repository layout and what each file does:
-
-.
-├─ keberadaan-guru-staf.html # Main web interface (UI)
-├─ styles.css # Custom styling for layout, cards, and filters
-├─ app.js # Core JavaScript logic (CRUD, filters, charts, PDF export)
-├─ logo_dataurl_fixed.js # Base64-encoded school logo (embedded image)
-├─ signature_dataurl.js # Base64-encoded digital signature (for PDF footer)
-├─ docs/ # Screenshots used in README
-│ ├─ KeberadaanGuru (1).png
-│ ├─ KeberadaanGuru (2).png
-│ ├─ KeberadaanGuru (3).png
-│ ├─ KeberadaanGuru (4).png
-│ └─ KeberadaanGuru (5).png
-├─ Data Guru Dan AKP/ # (Optional) Excel file with sample staff data
-└─ .gitignore # Ignore system/temp and private Excel files
+```text
+keberadaan-guru/
+│
+├── keberadaan-guru-staf.html     # 🌐 Main web interface (UI)
+├── styles.css                    # 🎨 Custom styling for layout, cards, and filters
+├── app.js                        # ⚙️ Core JavaScript logic (CRUD, filters, charts, PDF export)
+│
+├── logo_dataurl_fixed.js         # 🏫 Base64-encoded school logo (embedded image)
+├── signature_dataurl.js          # ✍️ Base64-encoded digital signature (for PDF footer)
+│
+├── docs/                         # 🖼️ Screenshots used in README
+│   ├── KeberadaanGuru (1).png
+│   ├── KeberadaanGuru (2).png
+│   ├── KeberadaanGuru (3).png
+│   ├── KeberadaanGuru (4).png
+│   └── KeberadaanGuru (5).png
+│
+└── Data Guru Dan AKP/            # 📊 (Optional) Excel file with sample staff data
+│   └── DATA GURU DAN AKP TERKINI 2025.xl
+```
