@@ -1,0 +1,117 @@
+/* Base & layout */
+body{font-family:Inter,system-ui,sans-serif;background:#f6f7fb}
+header{
+  background:linear-gradient(90deg,#2563eb,#60a5fa);
+  color:#fff;
+  padding:16px 0;
+}
+.header-center{gap:6px;}
+.header-logo{height:200px;}
+.header-sub{opacity:.9;}
+header img{height:48px;margin-right:10px}
+.card{border:0;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.btn{border-radius:10px;font-weight:600}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.date-head{font-weight:700;color:#0f172a;margin-top:10px}
+.table thead th{background:#e9efff}
+.badge-small{font-size:.8rem}
+
+/* Daily tables fixed widths */
+.kgas-table{table-layout:fixed;width:100%}
+.kgas-table th,.kgas-table td{white-space:normal;overflow-wrap:anywhere}
+.kgas-table col.col-bil{width:8%}
+.kgas-table col.col-nama{width:44%}
+.kgas-table col.col-jawat{width:16%}
+.kgas-table col.col-sebab{width:20%}
+.kgas-table col.col-tind{width:12%}
+
+/* Simple dashboard (compact) */
+.kpi-card{background:#fff;border:1px solid #eef2ff;border-radius:12px;padding:12px}
+.kpi-label{font-size:.8rem;color:#64748b}
+.kpi-value{font-size:1.6rem;font-weight:700;line-height:1.1}
+.kpi-value-sm{font-size:1rem}
+.kpi-muted{background:#fafbff}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:992px){.mini-grid{grid-template-columns:1fr}}
+.mini-chart{background:#fff;border:1px solid #eef2ff;border-radius:12px;padding:10px}
+.mini-title{font-weight:600;margin-bottom:6px}
+
+/* Fix mini chart height & prevent growth/jitter */
+.chart-fixed{
+  position: relative;
+  height: 160px;     /* Adjust here: 140–200px */
+  min-height: 160px;
+  width: 100%;
+}
+.mini-chart canvas{
+  width: 100% !important;
+  height: 100% !important; /* canvas fills the fixed box */
+  display: block;
+}
+
+/* Floating PDF button */
+.fab{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  z-index: 1040; /* above cards */
+}
+.fab:focus-visible{
+  outline: 3px solid rgba(37,99,235,.4);
+  outline-offset: 2px;
+}
+
+/* Make action column thinner and button smaller */
+.kgas-table th:last-child,
+.kgas-table td:last-child {
+  width: 70px;
+  text-align: center;
+}
+
+/* Compact delete button */
+.btn-delete {
+  background: #e11d48; /* red-600 */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 4px 10px;
+  line-height: 1.1;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-delete:hover {
+  background: #be123c; /* darker red */
+}
+
+/* --- Touch-friendly tweaks --- */
+button, input, select {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Make tables scrollable horizontally */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Make small buttons slightly bigger on touch devices */
+@media (pointer: coarse) {
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
