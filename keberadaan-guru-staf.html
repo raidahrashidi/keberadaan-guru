@@ -10,25 +10,66 @@
 <link href="styles.css" rel="stylesheet"><!-- external CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
+<!-- Small layout fixes for the filter bar -->
+<style>
+  /* Ensure predictable sizing */
+  * { box-sizing: border-box; }
+
+  /* Filter bar: flexible, wraps when tight, no overflow */
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .filters .field{
+    flex:1 1 220px;   /* grow, shrink, base width */
+    min-width:0;      /* << lets items actually shrink in a flex row */
+  }
+  .filters .field label{
+    display:block;
+    margin-bottom:.25rem;
+    font-weight:600;
+  }
+  .filters .field input,
+  .filters .field select{
+    width:100%;
+  }
+
+  /* Input + icon grouped so the icon doesn't add width */
+  .input-group{
+    position:relative;
+  }
+  .input-group input{
+    width:100%;
+    padding-right:2.25rem; /* room for icon */
+  }
+  .icon-btn{
+    position:absolute;
+    right:.5rem;
+    top:50%;
+    transform:translateY(-50%);
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    line-height:1;
+  }
+
+  /* Keep cards from showing overflow glow on some browsers */
+  .card { overflow:hidden; }
+</style>
+
 <!-- XLSX for Excel import -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
-
 <!-- PDF -->
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js" defer></script>
-
 <!-- Chart.js (for compact dashboard) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-
 <!-- Bootstrap JS (for modal) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-
 <!-- Base64 logo (must load before app.js) -->
 <script src="logo_dataurl_fixed.js" defer></script>
-
 <script src="signature_dataurl.js" defer></script>
-
-
 <!-- App logic -->
 <script src="app.js" defer></script>
 </head>
@@ -114,19 +155,20 @@
 
   <!-- ======= TAPIS (Naik ke atas chart) ======= -->
   <div class="card p-4 mt-4">
-    <div class="section-title mb-2">
+    <div class="section-title mb-2 d-flex align-items-center gap-2">
       <h5 class="fw-semibold text-primary mb-0">Semua Rekod (Carian & Tapis)</h5>
       <span class="badge text-bg-secondary" id="allCount">0 rekod</span>
     </div>
 
-    <!-- Filters -->
-    <div class="row g-2 mb-3">
-      <div class="col-md-4">
-        <label class="form-label mb-1">Cari Nama</label>
+    <!-- NEW Filters (replaces your previous .row) -->
+    <div class="filters mb-3">
+      <div class="field">
+        <label for="allNama">Cari Nama</label>
         <input id="allNama" type="text" class="form-control" placeholder="Taip nama…">
       </div>
-      <div class="col-md-3">
-        <label class="form-label mb-1">Jawatan</label>
+
+      <div class="field">
+        <label for="allJawatan">Jawatan</label>
         <select id="allJawatan" class="form-select">
           <option value="">Semua</option>
           <option value="GURU">GURU</option>
@@ -134,18 +176,25 @@
           <option value="AKP">AKP</option>
         </select>
       </div>
-      <div class="col-md-2">
-        <label class="form-label mb-1">Minggu</label>
+
+      <div class="field">
+        <label for="allMinggu">Minggu</label>
         <input id="allMinggu" type="number" min="1" max="53" class="form-control" placeholder="1–53">
       </div>
-      <div class="col-md-3 d-flex gap-2">
-        <div class="flex-fill">
-          <label class="form-label mb-1">Tarikh Dari</label>
+
+      <div class="field">
+        <label for="allTarikhFrom">Tarikh Dari</label>
+        <div class="input-group">
           <input id="allTarikhFrom" type="date" class="form-control" placeholder="dd/mm/yyyy">
+          <button class="icon-btn" aria-label="Pilih tarikh"><i class="bi bi-calendar3"></i></button>
         </div>
-        <div class="flex-fill">
-          <label class="form-label mb-1">Tarikh Hingga</label>
+      </div>
+
+      <div class="field">
+        <label for="allTarikhTo">Tarikh Hingga</label>
+        <div class="input-group">
           <input id="allTarikhTo" type="date" class="form-control" placeholder="dd/mm/yyyy">
+          <button class="icon-btn" aria-label="Pilih tarikh"><i class="bi bi-calendar3"></i></button>
         </div>
       </div>
     </div>
@@ -233,7 +282,6 @@
 
 <!-- ===== Floating Action Button: PDF ===== -->
 <button id="fabPdf" class="btn btn-primary fab" aria-label="Jana PDF">
-  <!-- Ikon download (SVG) -->
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
     <path d="M.5 9.9a.5.5 0 0 1 .5.5V13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10.4a.5.5 0 0 1 1 0V13a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V10.4a.5.5 0 0 1 .5-.5z"/>
     <path d="M7.646 10.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 1 0-.708-.708L8.5 9.293V1.5a.5.5 0 0 0-1 0v7.793L5.354 7.146a.5.5 0 1 0-.708.708z"/>
